@@ -1,101 +1,156 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import FormInput from "./component/FormInput";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [surveyData, setSurveyData] = useState({
+    surveyNo: "",
+    date: "",
+    schoolName: "",
+    schoolAddress: "",
+    schoolType: "",
+    studentStrength: "",
+    noOfClassrooms: "",
+    labAvailability: "",
+    surveyorName: "",
+    principalName: "",
+    noOfTeachers: "",
+    minStaffQualification: "",
+    noOfOtherStaffs: "",
+    isLibraryAvailable: false,
+    isPlaygroundAvailable: false,
+    keyChallenges: "",
+  });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  const formContent = [
+    {
+      label: "Unique ref No. / Report No. /  Survey No.",
+      value: surveyData?.surveyNo,
+      name: "surveyNo",
+      type: "text",
+    },
+    {
+      label: "Date",
+      value: surveyData?.date,
+      name: "date",
+      type: "date",
+    },
+    {
+      label: "Name of the school",
+      value: surveyData?.schoolName,
+      name: "schoolName",
+      type: "text",
+    },
+    {
+      label: "School address",
+      value: surveyData?.schoolAddress,
+      name: "schoolAddress",
+      type: "text",
+    },
+    {
+      label: "School Type",
+      value: surveyData?.schoolType,
+      name: "schoolType",
+      type: "checkbox",
+    },
+    {
+      label: "Student Strength",
+      value: surveyData?.studentStrength,
+      name: "studentStrength",
+      type: "text",
+    },
+    {
+      label: "No. of Classrooms",
+      value: surveyData?.noOfClassrooms,
+      name: "noOfClassrooms",
+      type: "number",
+    },
+    {
+      label: "Availability of labs (science, computer, etc)",
+      value: surveyData?.labAvailability,
+      name: "labAvailability",
+      type: "text",
+    },
+    {
+      label: "Name of the Surveyor",
+      value: surveyData?.surveyorName,
+      name: "surveyorName",
+      type: "text",
+    },
+    {
+      label: "Name of the Prinicipal",
+      value: surveyData?.principalName,
+      name: "principalName",
+      type: "text",
+    },
+    {
+      label: "No. of Teachers",
+      value: surveyData?.noOfTeachers,
+      name: "noOfTeachers",
+      type: "number",
+    },
+    {
+      label: "Minimum staff qualifications",
+      value: surveyData?.minStaffQualification,
+      name: "minStaffQualification",
+      type: "text",
+    },
+    {
+      label: "No. of Other Staffs",
+      value: surveyData?.noOfOtherStaffs,
+      name: "noOfOtherStaffs",
+      type: "number",
+    },
+    {
+      label: "Library avalability (Yes/No)",
+      value: surveyData?.isLibraryAvailable,
+      name: "isLibraryAvailable",
+      type: "radio",
+    },
+    {
+      label: "Playground area",
+      value: surveyData?.isPlaygroundAvailable,
+      name: "isPlaygroundAvailable",
+      type: "radio",
+    },
+    {
+      label: "Key challenges faced by the school",
+      value: surveyData?.keyChallenges,
+      name: "keyChallenges",
+      type: "text",
+    },
+  ];
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, type, checked, value } = event.target;
+
+    setSurveyData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  return (
+    <main className="h-screen w-screen">
+      <section className="p-5">
+        <div className="text-2xl font-bold text-center">SDK Candidate</div>
+        <section className="mt-6">
+          <form className="flex flex-col items-start">
+            {formContent?.map((_form, index) => (
+              <FormInput
+                key={index}
+                label={_form?.label}
+                type={_form?.type}
+                name={_form?.name}
+                value={_form?.value}
+                onChange={handleChange}
+              />
+            ))}
+
+            <button type="submit">Submit</button>
+          </form>
+        </section>
+      </section>
+    </main>
   );
 }
