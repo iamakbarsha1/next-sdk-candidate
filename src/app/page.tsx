@@ -51,7 +51,12 @@ export default function Home() {
       label: "School Type",
       value: surveyData?.schoolType,
       name: "schoolType",
-      type: "checkbox",
+      type: "radio",
+      options: [
+        { label: "Primary", value: true },
+        { label: "Secondary", value: false },
+        { label: "Higher Secondary", value: false },
+      ],
     },
     {
       label: "Student Strength",
@@ -106,12 +111,20 @@ export default function Home() {
       value: surveyData?.isLibraryAvailable,
       name: "isLibraryAvailable",
       type: "radio",
+      options: [
+        { label: "Yes", value: true },
+        { label: "No", value: false },
+      ],
     },
     {
       label: "Playground area",
       value: surveyData?.isPlaygroundAvailable,
       name: "isPlaygroundAvailable",
       type: "radio",
+      options: [
+        { label: "Yes", value: true },
+        { label: "No", value: false },
+      ],
     },
     {
       label: "Key challenges faced by the school",
@@ -123,17 +136,23 @@ export default function Home() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = event.target;
-
+    console.log("value - ", value);
     setSurveyData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : type === "radio"
+          ? value === "true"
+          : value,
     }));
   };
 
   return (
     <main className="h-screen w-screen">
-      <section className="p-5">
+      <section className="p-5 max-w-5xl mx-auto">
         <div className="text-2xl font-bold text-center">SDK Candidate</div>
+        {JSON.stringify(surveyData)}
         <section className="mt-6">
           <form className="flex flex-col items-start">
             {formContent?.map((_form, index) => (
@@ -144,10 +163,24 @@ export default function Home() {
                 name={_form?.name}
                 value={_form?.value}
                 onChange={handleChange}
+                isFilled={
+                  typeof surveyData[_form.name as keyof typeof surveyData] ===
+                  "boolean"
+                    ? surveyData[_form.name as keyof typeof surveyData]
+                    : !!surveyData[_form.name as keyof typeof surveyData]
+                }
+                options={_form?.options}
               />
             ))}
 
-            <button type="submit">Submit</button>
+            <div className="w-full flex items-center justify-center">
+              <button
+                type="submit"
+                className="mt-5 p-3 w-fit bg-cyan-300 font-bold text-black rounded-md"
+              >
+                Generate PDF
+              </button>
+            </div>
           </form>
         </section>
       </section>
